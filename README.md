@@ -1,6 +1,6 @@
 it is a cli song downloader and player
 NOTE:
-create a folder name songs before using or else it will not work
+create a folder named songs before using or else it will not work
 
 Usage:
     To play a song:
