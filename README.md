@@ -3,8 +3,6 @@ NOTE:
 you need to have mpv installed on your system to use it
 
 
-create a folder named songs before using or else it will not work
-
 Usage:
     To play a song:
         ./music.sh -p
