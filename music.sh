@@ -53,4 +53,4 @@ elif [[ $1 == "-p" ]]; then
 	
 	fi
 
-fi
+fi #done
