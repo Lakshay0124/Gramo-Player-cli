@@ -8,7 +8,7 @@ else
 fi
 sleep 1
 
-if [[ $1 == "-d" ]]; then
+if [[ $1 == "-download" ]]; then
 	echo "(without any space)"
 	printf "Song Name: "
 	read a
@@ -34,7 +34,7 @@ if [[ $1 == "-d" ]]; then
 	fi
 
 
-elif [[ $1 == "-p" ]]; then
+elif [[ $1 == "-play" ]]; then
 	cd songs/
 	sleep 1 
 	ls
