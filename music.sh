@@ -20,7 +20,7 @@ if [[ $1 == "-download" ]]; then
 	sed 's/<//g' son_output.txt > song_out.txt  
 	sed 's/>//' son_output.txt > song_out.txt   
 	cat song_out.txt | cut -c 32-       #cut first 32 chars from the link
-	youtube-dl --extract-audio --audio-format mp3 -o "$song_req.%(ext)s.%(ext)s" $(cat song_out.txt | cut -c 32-)
+	yt-dlp --extract-audio --audio-format mp3 -o "$song_req.%(ext)s.%(ext)s" $(cat song_out.txt | cut -c 32-)
 	sleep 1
 	if [[ -f $song_req.webm.mp3 ]]; then
 		mv $song_req.webm.mp3 songs
