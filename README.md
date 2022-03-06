@@ -5,7 +5,7 @@ you need to have mpv installed on your system to use it
 
 Usage:
     To play a song:
-        ./music.sh -p
+        ./music.sh -play
         
    To download a song:
-       ./music.sh -d
+       ./music.sh -download
