@@ -1,6 +1,6 @@
 it is a cli song downloader and player
 NOTE:
-you need to have mpv installed on your system to use it
+you need to have mpv and yt-dlp installed on your system to use it
 
 
 Usage:
