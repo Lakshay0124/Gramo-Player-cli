@@ -5,7 +5,7 @@ you need to have mpv and yt-dlp installed on your system to use it
 
 Usage:
     To play a song:
-        ./music.sh -play
+        ./music.sh play
         
    To download a song:
-       ./music.sh -download
+       ./music.sh download
