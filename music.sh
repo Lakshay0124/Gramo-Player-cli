@@ -9,7 +9,7 @@ fi
 sleep 1
 
 
-if [[ $1 == "-download" ]]; then
+if [[ $1 == "download" ]]; then
 	printf "Song Name: "
 	read a
 	echo $a > song_needy.txt
@@ -38,7 +38,7 @@ if [[ $1 == "-download" ]]; then
 	fi
 
 
-elif [[ $1 == "-play" ]]; then
+elif [[ $1 == "play" ]]; then
 	cd songs/
 	sleep 1 
 	ls
