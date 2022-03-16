@@ -6,7 +6,7 @@ if [[ -e $folder ]]; then
 else
 	mkdir songs
 fi
-sleep 1
+sleep 0.1
 
 
 if [[ $1 == "download" ]]; then
@@ -30,7 +30,7 @@ if [[ $1 == "download" ]]; then
 		nameyy=$(ls $song_req.webm.mp3 | sed 's/+/ /g')
 		mv $song_req.webm.mp3 songs/
 		cd songs/
-		mv "$song_req.webm.mp3" "$nameyy"
+		mv "$song_req.webm.mp3" "$nameyy" > /dev/null 2>&1
 		cd ..
 
 
@@ -38,7 +38,7 @@ if [[ $1 == "download" ]]; then
 		nameyy=$(ls $song_req.m4a.mp3 | sed 's/+/ /g')
 		mv $song_req.m4a.mp3 songs/
 		cd songs/
-		mv "$song_req.m4a.mp3" "$nameyy"
+		mv "$song_req.m4a.mp3" "$nameyy" > /dev/null 2>&1
 		cd ..
 
 	else
@@ -67,4 +67,5 @@ elif [[ $1 == "play" ]]; then
 	fi
 
 fi
+
 
