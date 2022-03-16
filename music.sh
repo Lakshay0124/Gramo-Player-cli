@@ -2,7 +2,7 @@
 
 folder=songs
 if [[ -e $folder ]]; then
-	echo ""
+	:
 else
 	mkdir songs
 fi
