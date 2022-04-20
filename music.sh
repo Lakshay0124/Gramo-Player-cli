@@ -11,16 +11,14 @@ sleep 0.1
 
 if [[ $1 == "download" ]]; then
 	printf "Song Name: "
-	read a
-	echo $a > song_needy.txt
-	sed 's/ /+/g' song_needy.txt > song_needy1.txt
-	song_req=$(cat song_needy1.txt) 
-	curl -s https://invidious.kavin.rocks/search?q=$song_req > song_qr.txt  #curl it using invidious
-	sed '240!d' song_qr.txt > song_final.txt    #all sed command filter everything and make the link to use for youtube-dl
-	sed 's/"//g' song_final.txt > son_output.txt 
-	sed 's/<//g' son_output.txt > song_out.txt  
-	sed 's/>//' son_output.txt > song_out.txt   
-	cat song_out.txt | cut -c 32- > /dev/null 2>&1      #cut first 32 chars from the link
+        read song_req
+        curl -s https://invidious.snopyta.org/search?q=$song_req > data0.txt
+        awk '/Watch/{print}' data0.txt  | head -n 1 > data1.txt
+        cat data1.txt | cut -c 43- > data3.txt
+        yt-dlp --extract-audio --audio-format mp3 -o "$song_req.%(ext)s.%(ext)s" $(cat data3.txt | sed 's/>//' | sed 's/"//'
+        )> /dev/null 2>&1
+        rm *.txt
+
 	yt-dlp --extract-audio --audio-format mp3 -o "$song_req.%(ext)s.%(ext)s" $(cat song_out.txt | cut -c 32-) > /dev/null 2>&1
 	rm *.txt	
 	printf "Success!\n"	
