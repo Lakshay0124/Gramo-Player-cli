@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 folder=songs
 if [[ -e $folder ]]; then
@@ -17,10 +17,7 @@ if [[ $1 == "download" ]]; then
         cat data1.txt | cut -c 43- > data3.txt
         yt-dlp --extract-audio --audio-format mp3 -o "$song_req.%(ext)s.%(ext)s" $(cat data3.txt | sed 's/>//' | sed 's/"//'
         )> /dev/null 2>&1
-        rm *.txt
-
-	yt-dlp --extract-audio --audio-format mp3 -o "$song_req.%(ext)s.%(ext)s" $(cat song_out.txt | cut -c 32-) > /dev/null 2>&1
-	rm *.txt	
+     	rm *.txt
 	printf "Success!\n"	
 	sleep 0.1
 
@@ -65,5 +62,6 @@ elif [[ $1 == "play" ]]; then
 	fi
 
 fi
+
 
 
