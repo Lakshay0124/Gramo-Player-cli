@@ -12,6 +12,7 @@ sleep 0.1
 if [[ $1 == "download" ]]; then
         printf "Song Name: "
         read song_req 
+        echo "Download Please Wait!"
         echo "$song_req" > req.txt
         sed 's/ /+/g' req.txt > req1.txt
         curl -s https://invidious.snopyta.org/search?q=$(cat req1.txt) > data0.txt
