@@ -25,11 +25,12 @@ if [[ $1 == "download" ]]; then
         sleep 0.1
 
         if [[ -f $song_req.mp3 ]]; then
+                ffmpeg -i "$song_req.mp3" "$song_req.wav" > /dev/null 2>&1;rm "$song_req.mp3"
                 printf "name of song to save: "
                 read nameyy
-                mv "$song_req.mp3" songs/
+                mv "$song_req.wav" songs/
                 cd songs/
-                mv "$song_req.mp3" "$nameyy.mp3" > /dev/null 2>&1
+                mv "$song_req.wav" "$nameyy.wav" > /dev/null 2>&1
                 cd ..
 
         else
@@ -44,11 +45,12 @@ elif [[ $1 == "play" ]]; then
         ls
         printf "which song to play: "
         read query
-        if [[ -f "$query.mp3" ]]; then
-                mpv "$query.mp3"
+        if [[ -f "$query.wav" ]]; then
+                paplay "$query.wav"
 
         else
                 printf "error 404\n"
+
 
         fi
 
