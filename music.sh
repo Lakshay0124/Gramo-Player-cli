@@ -7,9 +7,10 @@ else
         mkdir songs
 fi
 sleep 0.1
-
-
-if [[ $1 == "download" ]]; then
+echo "(press 1 to DOWNLOAD a song and press 2 to PLAY a song!)"
+printf "What you want to do: "
+read decision
+if [[ $decision == "1" ]]; then
         printf "Song Name: "
         read song_req 
         echo "Downloading Please Wait!"
@@ -19,7 +20,7 @@ if [[ $1 == "download" ]]; then
         awk '/Watch/{print}' data0.txt  | head -n 1 > data1.txt
         cat data1.txt | cut -c 43- > data3.txt
         yt-dlp --extract-audio --audio-format mp3 -o "$song_req.%(ext)s" $(cat data3.txt | sed 's/>//' | sed 's/"//'
-        )> /dev/null 2>&1
+        ) > /dev/null 2>&1
         rm *.txt
         printf "Success!\n"
         sleep 0.1
@@ -30,9 +31,12 @@ if [[ $1 == "download" ]]; then
                 read nameyy
                 mv "$song_req.wav" songs/
                 cd songs/
-                mv "$song_req.wav" "$nameyy.wav" > /dev/null 2>&1
-                cd ..
+                if [[ "$nameyy" == "" ]]; then
+                        cd ..
+                else
+                        mv "$song_req.wav" "$nameyy.wav" > /dev/null 2>&1
 
+                fi
         else
 
                 printf "error 404\n"
@@ -40,7 +44,7 @@ if [[ $1 == "download" ]]; then
         fi
 
 
-elif [[ $1 == "play" ]]; then
+elif [[ $decision == "2" ]]; then
         cd songs/
         ls
         printf "which song to play: "
@@ -56,4 +60,3 @@ elif [[ $1 == "play" ]]; then
 
 
 fi
-
