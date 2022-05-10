@@ -1,11 +1,8 @@
 it is a cli song downloader and player
 NOTE:
-you need to have mpv and yt-dlp installed on your system to use it
+In order to use this script you need to have following things installed on your system: 
+1.pulseaudio
+2.yt-dlp
+3.gnu core utilites like awk,cut etc.
 
-
-Usage:
-    To play a song:
-        ./music.sh play
-        
-   To download a song:
-       ./music.sh download
+your songs will be stored in songs directory
