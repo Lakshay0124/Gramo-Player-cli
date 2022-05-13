@@ -1,4 +1,10 @@
 it is a cli song downloader and player
+FEATURES:
+            1.shuffle songs
+            2.play songs
+            3.play one song on loop
+            4.download song in mp3 
+            5.
 NOTE:
 In order to use this script you need to have following things installed on your system: 
 1.mpv
@@ -9,10 +15,11 @@ In order to use this script you need to have following things installed on your 
 
 USAGE:
 1.don't use any extension of song like .mp3 when playing it just type it's name only
-2.you can play a song on loop by typing this command: 
+2.you can play a song on loop by first clicking second option then typing this command: 
 
             loop <song name> 
             
   this will play your song on loop
  
- 3.
+ 3.you can shuffle songs by first clicking second option then typing this command:
+            shuffle
