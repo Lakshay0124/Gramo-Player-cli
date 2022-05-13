@@ -14,7 +14,7 @@ if [[ $decision == "1" ]]; then
         printf "Song Name: "
         read song_req 
         echo "Downloading Please Wait!"
-        echo "$song_req song" > req.txt
+        echo "$song_req" > req.txt
         link=$(curl -s https://vid.puffyan.us/search?q=$(sed 's/ /+/g' req.txt) | awk '/Watch/{print}' | head -n 1 | awk '{print $5}' | sed 's/href="//' | sed 's/">//')
         yt-dlp --extract-audio --audio-format mp3 -o "$song_req.%(ext)s" "$link" > /dev/null 2>&1
         rm *.txt
@@ -48,10 +48,25 @@ elif [[ $decision == "2" ]]; then
         if [[ -f "$query.mp3" ]]; then
                 mpv "$query.mp3"
 
-        elif [[ "$query"=="loop $query" ]]; 
-        then
+        elif [[ "$query"=="loop $query" ]]; then
+                echo
                 while :
                 do
-
                         mpv $(echo "$query.mp3" | awk '{print $2}')
                 done
+        else
+                printf "bruh\n"
+        fi
+        case $query in 
+                shuffle)
+                cd ..
+                bash shuffler.sh
+                ;;
+
+
+
+                *)
+                printf "error 404 and learn its usage in README.md\n"
+                ;;
+esac
+fi
