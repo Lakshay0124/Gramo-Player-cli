@@ -13,9 +13,11 @@ read decision
 if [[ $decision == "1" ]]; then
         printf "Song Name: "
         read song_req 
-        if [[ "$song_req"=="mass-download" ]];then
+        case $song_req in 
+                mass-download)
                 bash mass-downloader.sh
-        else
+                ;;
+                *)
                 echo "Downloading Please Wait!"
                 echo "$song_req" > req.txt
                 link=$(curl -s https://vid.puffyan.us/search?q=$(sed 's/ /+/g' req.txt) | awk '/Watch/{print}' | head -n 1 | awk '{print $5}' | sed 's/href="//' | sed 's/">//')
@@ -23,7 +25,9 @@ if [[ $decision == "1" ]]; then
                 rm *.txt
                 printf "Success!\n"
                 sleep 0.1
-        fi
+                ;;
+        esac
+        
         if [[ -f $song_req.mp3 ]]; then
                 echo "press enter to save the default one"
                 printf "name of song to save: "
@@ -73,3 +77,4 @@ elif [[ $decision == "2" ]]; then
                 ;;
 esac
 fi
+
