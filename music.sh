@@ -15,12 +15,8 @@ if [[ $decision == "1" ]]; then
         read song_req 
         echo "Downloading Please Wait!"
         echo "$song_req" > req.txt
-        sed 's/ /+/g' req.txt > req1.txt
-        curl -s https://invidious.snopyta.org/search?q=$(cat req1.txt) > data0.txt
-        awk '/Watch/{print}' data0.txt  | head -n 1 > data1.txt
-        cat data1.txt | cut -c 43- > data3.txt
-        yt-dlp --extract-audio --audio-format mp3 -o "$song_req.%(ext)s" $(cat data3.txt | sed 's/>//' | sed 's/"//'
-        ) > /dev/null 2>&1
+        link=$(curl -s https://vid.puffyan.us/search?q=$(sed 's/ /+/g' req.txt) | awk '/Watch/{print}' | head -n 1 | awk '{print $5}' | sed 's/href="//' | sed 's/">//')
+        yt-dlp --extract-audio --audio-format mp3 -o "$song_req.%(ext)s" "$link" > /dev/null 2>&1
         rm *.txt
         printf "Success!\n"
         sleep 0.1
