@@ -14,7 +14,7 @@ if [[ $decision == "1" ]]; then
         printf "Song Name: "
         read song_req 
         echo "Downloading Please Wait!"
-        echo "$song_req" > req.txt
+        echo "$song_req song" > req.txt
         link=$(curl -s https://vid.puffyan.us/search?q=$(sed 's/ /+/g' req.txt) | awk '/Watch/{print}' | head -n 1 | awk '{print $5}' | sed 's/href="//' | sed 's/">//')
         yt-dlp --extract-audio --audio-format mp3 -o "$song_req.%(ext)s" "$link" > /dev/null 2>&1
         rm *.txt
@@ -40,7 +40,7 @@ if [[ $decision == "1" ]]; then
         fi
 
 
-elif [[ $decision == "2" ]]; then
+elif [[ $decision == "2" ]]; then 
         cd songs/
         ls
         printf "which song to play: "
@@ -48,11 +48,10 @@ elif [[ $decision == "2" ]]; then
         if [[ -f "$query.mp3" ]]; then
                 mpv "$query.mp3"
 
-        else
-                printf "error 404\n"
+        elif [[ "$query"=="loop $query" ]]; 
+        then
+                while :
+                do
 
-
-        fi
-
-
-fi
+                        mpv $(echo "$query.mp3" | awk '{print $2}')
+                done
