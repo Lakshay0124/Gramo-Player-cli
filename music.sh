@@ -13,14 +13,17 @@ read decision
 if [[ $decision == "1" ]]; then
         printf "Song Name: "
         read song_req 
-        echo "Downloading Please Wait!"
-        echo "$song_req" > req.txt
-        link=$(curl -s https://vid.puffyan.us/search?q=$(sed 's/ /+/g' req.txt) | awk '/Watch/{print}' | head -n 1 | awk '{print $5}' | sed 's/href="//' | sed 's/">//')
-        yt-dlp --extract-audio --audio-format mp3 -o "$song_req.%(ext)s" "$link" > /dev/null 2>&1
-        rm *.txt
-        printf "Success!\n"
-        sleep 0.1
-
+        if [[ "$song_req"=="mass-download" ]];then
+                bash mass-downloader.sh
+        else
+                echo "Downloading Please Wait!"
+                echo "$song_req" > req.txt
+                link=$(curl -s https://vid.puffyan.us/search?q=$(sed 's/ /+/g' req.txt) | awk '/Watch/{print}' | head -n 1 | awk '{print $5}' | sed 's/href="//' | sed 's/">//')
+                yt-dlp --extract-audio --audio-format mp3 -o "$song_req.%(ext)s" "$link" > /dev/null 2>&1
+                rm *.txt
+                printf "Success!\n"
+                sleep 0.1
+        fi
         if [[ -f $song_req.mp3 ]]; then
                 echo "press enter to save the default one"
                 printf "name of song to save: "
