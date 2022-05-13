@@ -14,12 +14,16 @@ In order to use this script you need to have following things installed on your 
 *your songs will be stored in songs directory
 
 USAGE:
-1.don't use any extension of song like .mp3 when playing it just type it's name only
-2.you can play a song on loop by first clicking second option then typing this command: 
+1.run music.sh by this command
+            
+            ./music.sh
+          
+2.don't use any extension of song like .mp3 when playing it just type it's name only
+3.you can play a song on loop by first clicking second option then typing this command: 
 
             loop <song name> 
             
   this will play your song on loop
  
- 3.you can shuffle songs by first clicking second option then typing this command:
+ 4.you can shuffle songs by first clicking second option then typing this command:
             shuffle
