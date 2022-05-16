@@ -49,36 +49,32 @@ if [[ $decision == "1" ]]; then
 
 elif [[ $decision == "2" ]]; then 
         cd songs/
-        rm *.txt
         ls
         printf "which song to play: "
         read query
-        if [[ $(echo $query | awk '{print $1}')=="loop" ]]; then
-                while :
-                do
-                        echo $query > ques.txt
-                        name="$(sed s'/loop.//' ques.txt)"
-                        mpv "$name.mp3"
+	check=$(echo "$query" | awk '{print $1,$2}')
+	case "$query" in 
+        	"shuffle")
+        		cd ..
+        		bash shuffler.sh
+        		;;
 
-                done
-                rm *.txt
 
-        case $query in 
-        shuffle)
-        cd ..
-        bash shuffler.sh
-        ;;
+		"$check")
+   	    		while :
+                	        do
+                        	        echo $query > ques.txt
+                        	        name="$(sed s'/loop.//' ques.txt)"
+                        	        mpv "$name.mp3"
 
-        "loop")
-        cd ..
-        echo $query > query.txt
-        bash loop.sh
-        ;;
-        "$query")
-        mpv "$query.mp3"
-        rm *.txt
-        ;;
+                	        done
+        		;;
+
+        	*)
+		
+        		mpv "$query.mp3"
+        		;;
 esac
 fi
-fi
-rm *.txt
+
+
