@@ -1,5 +1,4 @@
 #!/bin/bash
-
 cd songs/
 printf  "$(ls)\n" > songs.txt
 no=$(wc -l songs.txt | awk '{print $1}')
@@ -7,12 +6,10 @@ i=0
 while [ $i -lt $no ]
 do
 
-	i=$((i+1))
-        name=$(sed -n $i,0p songs.txt)
-        echo $name > name.txt
+        i=$((i+1))
+        rand=$(($RANDOM%$no+1))
+        name=$(cat songs.txt | head -n $rand | tail -n 1)
         mpv "$name"
-                        #rm *.txt
-
-		
 done
 
+rm *.txt
