@@ -34,7 +34,7 @@ sed 's/href="//' | sed 's/">//')
                 read nameyy
                 mv "$song_req.mp3" songs/
                 cd songs/
-                echo $song_req.mp3 > name.txt
+                echo $song_req > name.txt
                 nameyy=$(sed s'/ /-/g' name.txt)
                 if [[ "$nameyy" == "" ]]; then
                         mv "$song_req.mp3" "$nameyy" > /dev/null 2>&1
@@ -46,7 +46,6 @@ sed 's/href="//' | sed 's/">//')
 
                 fi
         else
-
                 printf "error 404\n"
 
         fi
