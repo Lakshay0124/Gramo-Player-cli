@@ -34,15 +34,18 @@ sed 's/href="//' | sed 's/">//')
                 read nameyy
                 mv "$song_req.mp3" songs/
                 cd songs/
-                echo $song_req > name.txt
-                nameyy=$(sed s'/ /-/g' name.txt)
                 if [[ "$nameyy" == "" ]]; then
+                        echo $song_req > name.txt
+                        nameyy=$(sed s'/ /-/g' name.tx)
                         mv "$song_req.mp3" "$nameyy" > /dev/null 2>&1
                         cd ..
 
                 else
+                        echo $nameyy > name.txt
+                        nameyy=$(sed s'/ /-/g' name.txt)
                         mv "$song_req.mp3" "$nameyy.mp3" > /dev/null 2>&1
                         rm *.txt
+                       
 
                 fi
         else
