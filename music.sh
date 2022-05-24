@@ -38,7 +38,7 @@ sed 's/href="//' | sed 's/">//')
                         echo "$song_req.mp3" > name.txt
                         nameyy=$(sed s'/ /-/g' name.txt)
                         mv "$song_req.mp3" "$nameyy" > /dev/null 2>&1
-			rm name.txt
+                        rm name.txt
                         cd ..
 
                 else
@@ -72,10 +72,11 @@ elif [[ $decision == "2" ]]; then
                                 do
                                         echo $query > ques.txt
                                         name="$(sed s'/loop.//' ques.txt)"
-                                        mpv "$name.mp3"
                                         rm *.txt
-
+                                        mpv "$name.mp3"
+                                      
                                 done
+
                         ;;
 
                 *)
