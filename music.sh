@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 folder=songs
 if [[ -e $folder ]]; then
         :
