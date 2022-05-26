@@ -14,7 +14,8 @@ if [[ $decision == "1" ]]; then
         read song_req
         case $song_req in
                 mass-download)
-                bash mass-downloader.sh
+                chmod +x mass-downloader.sh
+                ./mass-downloader.sh
                 ;;
                 *)
                 echo "Downloading Please Wait!"
@@ -46,10 +47,10 @@ sed 's/href="//' | sed 's/">//')
                         nameyy=$(sed s'/ /-/g' name.txt)
                         mv "$song_req.mp3" "$nameyy.mp3" > /dev/null 2>&1
                         rm *.txt
-                       
+
 
                 fi
-   
+
 
         fi
 
@@ -63,7 +64,8 @@ elif [[ $decision == "2" ]]; then
         case "$query" in
                 "shuffle")
                         cd ..
-                        bash shuffler.sh
+                        chmod +x shuffler.sh
+                        ./shuffler.sh
                         ;;
 
 
@@ -74,7 +76,7 @@ elif [[ $decision == "2" ]]; then
                                         name="$(sed s'/loop.//' ques.txt)"
                                         rm *.txt
                                         mpv "$name.mp3"
-                                      
+
                                 done
 
                         ;;
