@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 cd songs/
 printf  "$(ls)\n" > songs.txt
 no=$(wc -l songs.txt | awk '{print $1}')
