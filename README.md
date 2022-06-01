@@ -17,11 +17,11 @@ In order to use this script you need to have following things installed on your 
 USAGE:
 1.use this command to execute music.sh
 
-            chmod +x music.sh
+            chmod +x music
 
 2.run music.sh by this command
          
-            ./music.sh
+            ./music
           
 
 3.you can play a song on loop by first clicking second option then typing this command: 
