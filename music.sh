@@ -13,9 +13,6 @@ if [[ $decision == "1" ]]; then
         printf "Song Name: "
         read song_req
         case $song_req in
-                mass-download)
-                chmod +x mass-downloader.sh
-                ./mass-downloader.sh
                 ;;
                 *)
                 echo "Downloading Please Wait!"
@@ -80,6 +77,14 @@ elif [[ $decision == "2" ]]; then
                                 done
 
                         ;;
+                 "share")
+                mass-download)
+                chmod +x mass-downloader.sh
+                ./mass-downloader.sh
+                         printf "Enter the name of song to share: "
+                         read name
+                         echo "link is $(curl -F "file=@$name.mp3" 0x0.st)" 
+                         ;;
 
                 *)
 
