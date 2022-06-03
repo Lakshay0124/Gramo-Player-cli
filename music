@@ -9,7 +9,7 @@ sleep 0.1
 echo "(press 1 to DOWNLOAD a song and press 2 to PLAY a song!)"
 printf "What you want to do: "
 read decision
-if [ $decision == "1" ]; then
+if [ $decision = "1" ]; then
         printf "Song Name: "
         read song_req
         case $song_req in
@@ -55,7 +55,7 @@ sed 's/href="//' | sed 's/">//')
         fi
 
 
-elif [ $decision == "2" ]; then
+elif [ $decision = "2" ]; then
         cd songs/
         ls
         printf "which song to play: "
@@ -92,4 +92,3 @@ elif [ $decision == "2" ]; then
                         ;;
 esac
 fi
-
