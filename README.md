@@ -10,8 +10,9 @@ In order to use this script you need to have following things installed on your 
 1.ffmpeg
 2.yt-dlp
 3.gnu core utilites like awk,cut etc.
+4.mpv
 
-*controls to play songs are just like ffplay
+*controls to play songs are just like mpv
 *your songs will be stored in songs directory
 *don't type .mp3 extension when typing any song name in second option just type song name 
 
