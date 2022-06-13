@@ -75,7 +75,7 @@ elif [ $decision = "2" ]; then
                                         echo $query > ques.txt
                                         name="$(sed s'/loop.//' ques.txt)"
                                         rm *.txt
-                                        mpv "$name.mp3"
+                                        ffplay "$name.mp3"
 
                                 done
 
@@ -88,7 +88,7 @@ elif [ $decision = "2" ]; then
 			
                 *)
 
-                        mpv "$query.mp3"
+                        ffplay "$query.mp3"
                         ;;
 esac
 fi
