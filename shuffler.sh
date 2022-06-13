@@ -9,7 +9,8 @@ do
         i=$((i+1))
         rand=$(($RANDOM%$no+1))
         name=$(cat songs.txt | head -n $rand | tail -n 1)
-        ffplay "$name"
+        mpv "$name"
 done
 
 rm *.txt
+
