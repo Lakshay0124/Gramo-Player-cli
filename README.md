@@ -7,10 +7,11 @@ FEATURES:
             5.mass download many songs
 NOTE:
 In order to use this script you need to have following things installed on your system: 
-1.mpv
+1.ffmpeg
 2.yt-dlp
 3.gnu core utilites like awk,cut etc.
 
+*controls to play songs are just like ffplay
 *your songs will be stored in songs directory
 *don't type .mp3 extension when typing any song name in second option just type song name 
 
