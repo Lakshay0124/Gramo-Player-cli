@@ -14,7 +14,7 @@ do
         yt-dlp --extract-audio --audio-format mp3 -o "$song_req.%(ext)s" "$link" > /dev/null 2>&1
         printf "Success!\n"
         sleep 0.1
-        if [ -f $song_req.mp3 ]; then
+        if [ -f "$song_req.mp3" ]; then
                 mv "$song_req.mp3" songs/
                 cd songs/
                 echo "$song_req.mp3" > name.txt
