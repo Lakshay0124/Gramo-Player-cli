@@ -1,5 +1,11 @@
 #!/bin/sh
+player()
+{
+	cat player.txt
+	
+}
 folder=songs
+player=$(cat player.txt)
 if [ -e $folder ]; then
         :
 else
@@ -9,7 +15,7 @@ sleep 0.1
 echo "(press 1 to DOWNLOAD a song and press 2 to PLAY a song!)"
 printf "What you want to do: "
 read decision
-if [ $decision -eq "1" ]; then
+if [ $decision = "1" ]; then
         printf "Song Name: "
         read song_req
         case "$song_req" in
@@ -57,15 +63,15 @@ if [ $decision -eq "1" ]; then
 
 elif [ $decision = "2" ]; then
         cd songs/
-        ls
+	rm ques.txt > /dev/null 2>&1
+        ls *.mp3
         printf "which song to play: "
         read query
         check=$(echo "$query" | awk '{print $1,$2}')
         case "$query" in
                 "shuffle")
                         cd ..
-                        chmod +x shuffler.sh
-                        ./shuffler.sh
+                        sh ./shuffler.sh
                         ;;
 
 
@@ -73,10 +79,9 @@ elif [ $decision = "2" ]; then
                         while :
                                 do
                                         echo $query > ques.txt
-                                        name="$(sed s'/loop.//' ques.txt)"
-                                        rm *.txt
-                                        mpv "$name.mp3"
-
+                                        name="$(echo $query | sed s'/loop.//')"
+					$(player) "$name.mp3"
+					killall $(player)
                                 done
 
                         ;;
@@ -84,12 +89,25 @@ elif [ $decision = "2" ]; then
 			 printf "Enter the name of song to share: "
 			 read name	
 			 echo "link is $(curl -F "file=@$name.mp3" 0x0.st)" 
-			 ;;	
+			 ;;
+		 
 			
                 *)
 
-                        mpv "$query.mp3"
+			$(player) "$query.mp3"
                         ;;
 esac
-fi
+elif [ "$decision" = "change-player" ]; then
+	printf "enter your music player name: "
+	read name
+	printf "$name"  > player.txt; printf "$name" > songs/player.txt
 
+
+elif [ "$decision" = "mass-share" ]; then
+	printf "Enter name of songs directory: "
+	read dir
+	printf "please wait!\n"
+	tar -cJvf  songs.tar.xz "$dir"
+	printf "link is $(curl -F file="@songs.tar.xz" 0x0.st)\n"
+			 
+fi
