@@ -9,8 +9,9 @@ NOTE:
 In order to use this script you need to have following things installed on your system: 
 1.ffmpeg
 2.yt-dlp
-3.gnu core utilites like awk,cut etc.
+3.gnu core utilites like awk,sed etc.
 4.mpv
+5.tar
 
 *controls to play songs are just like mpv
 *your songs will be stored in songs directory
@@ -40,4 +41,10 @@ USAGE:
 6.you can share you song by going to second option and typing this command :
             ```share```
             
- then enter your song name without .mp3 and a link will be created to share your song
+7. to mass share just execute music file and type this command : 
+	mass-share
+
+8. to change player just execute music file and type this command : 
+	change-player
+
+then enter your song name without .mp3 and a link will be created to share your song
