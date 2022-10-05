@@ -1,31 +1,30 @@
 #!/bin/sh
-printf "enter name of file to download songs from: "
-read file
-no=$(wc -l "$file" | awk '{print $1}')
-i=0
-while [ $i -lt $no ]
-do
-        i=$((i+1))
-        name=$(sed -n $i,0p "$file")
-        song_req="$name"
+
+download()
+{
+	#songs="$(head -n $1 songs)"
         echo "Downloading Please Wait!"
-        echo "$song_req" > req.txt
-        link=$(curl -s https://vid.puffyan.us/search?q=$(sed 's/ /+/g' req.txt) | awk '/Watch/{print}' | head -n 1 | awk '{print $5}' | sed 's/href="//' | sed 's/">//')
-        yt-dlp --extract-audio --audio-format mp3 -o "$song_req.%(ext)s" "$link" > /dev/null 2>&1
-        printf "Success!\n"
-        sleep 0.1
-        if [ -f "$song_req.mp3" ]; then
-                mv "$song_req.mp3" songs/
-                cd songs/
-                echo "$song_req.mp3" > name.txt
-                nameyy=$(sed s'/ /-/g' name.txt)
-                mv "$song_req.mp3" "$nameyy" > /dev/null 2>&1
-                rm *.txt
-                cd ..
-                                 
-        
-        fi
+        echo ""$(cat songs.txt)" | head -n $1 | tail -n 1)" > "$1_req.txt"
+	 #link variable fetches link of video like fKopy74weus 
+	
+	link=$(curl -s https://vid.puffyan.us/search?q=$(sed 's/ /+/g' "$1_req.txt") | awk '/Watch/{print}' | head -n 1 | awk '{print $5}' | sed 's/href="//' | sed 's/">//' | cut -c 33-)
 
+	audio_file="https://vid.puffyan.us/latest_version?id=$link&itag=139&local=true"
+
+		#this makes link into its audio form like https://vid.puffyan.us/embed/fKopy74weus?listen=1' 
+	curl -L -o "$("$(cat songs.txt)" | head -n "$1" | tail -n 1).m4a" "$audio_file" 
+                
+	printf "Success!\n"
+	
+}
+no="$(wc -l "$(cat songs.txt)" | awk '{print $1}')"
+i=0
+
+
+while [ "$i" -lt "$no" ];
+do
+	i=$((i+1))
+	download $i &
 done
-
-rm *.txt > /dev/null 2>&1
+wait
+rm *.txt

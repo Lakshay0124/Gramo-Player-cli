@@ -1,0 +1,47 @@
+.\" Manpage
+.TH man 8 "5 Oct 2022" "Beta" "gramoplayer-cli man page"
+.SH NAME
+gramoplayer \- download and play music
+.SH SYNOPSIS
+gramo [OPTIONS]
+download-
+.PP
+	gramo d "song query" format of song like webm or m4a "name of song to save"
+	you can use down or download or 1 instead of the d
+	using any other format than m4a or webm will require ffmpeg to convert
+.PP
+play-
+	gramo p
+	you can use play or pl instead of p
+.PP
+shuffle songs-
+
+	gramo s 
+	you can use shf or shuffle instead of s
+.PP
+mass download songs-
+	you need to create a file with all your songs name you want to download, which are seperated with a line
+	gramo name of file
+.PP
+loop songs-
+.PP
+	gramo l
+	you can use loop or lp instead of l
+.PP
+share song to someone else-
+	gramo shr
+.PP
+share every song-
+.PP
+	gramo mshr
+
+.SH DESCRIPTION
+gramoplayer uses pure posix shell and is very flexible like you can change how you display songs by editing config/display.txt file and change what player of song to use by changing config/player.txt, at first changing the name of song to hyphens was a bug as i did not used read -r but then i realise that it actually makes the program little bit unique so i added it. what 
+you will need gnu coreutils, a player that takes cli args, curl,tar to mass share and that is all to make it fully functionable
+.SH EXAMPLES
+	download- 
+	gramo d "thunder by imagine dragons" wav "thunder by dragons"
+.SH BUGS
+you can report bugs at my github https://github.com/Lakshay0124/Gramo-Player-cli/issues
+.SH AUTHOR
+Lakshay Mann (lakshaymann@tutamail.com)

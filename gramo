@@ -1,0 +1,150 @@
+#!/bin/sh
+
+rm songs.txt > /dev/null 2>&1
+mkdir songs > /dev/null 2>&1
+player() 
+{ 
+  cat config/player.txt
+}
+
+
+display_songs() 
+{ 
+	cat config/display.txt
+}
+shuffle()
+{
+	for i in $(ls songs); do
+	$(player) songs/$(ls songs | shuf -n 1) && kill $! > /dev/null 2>&1
+	done
+}
+download()
+{
+	song_req="$1"
+	format_req="$2"
+	link="$3"
+	case "$format_req" in
+	"webm")
+#	audio_file_link="https://vid.puffyan.us/latest_version?id=$link&itag=251&local=true"
+	audio_file_link="https://vid.puffyan.us$(curl -s "https://vid.puffyan.us/watch?v=$link&listen=1" | grep latest_version | tail -n 1 | awk '{print $2}' | sed 's/src=//' | sed 's/"//g')"
+	
+	curl --progress-bar -L -o "$song_req.webm" "$audio_file_link"
+	while [ true ];
+	do	
+
+		if [ -f "$song_req.webm" ];
+		then
+		       printf "Success!\n"
+		       break
+
+		else
+			curl --progress-bar -L -o "$song_req.webm" "$audio_file_link"
+		  fi
+	      done
+	;;
+
+	"m4a")
+	audio_file_link="https://vid.puffyan.us/latest_version?id=$link&itag=139&local=true"
+	curl --progress-bar -L -o "$song_req.m4a" "$audio_file_link"
+	while [ true ];
+	do	
+
+		if [ -f "$song_req.m4a" ];
+		then
+		       printf "Success!\n"
+		       break
+
+		else
+			curl --progress-bar -L -o "$song_req.m4a" "$audio_file_link"
+		  fi
+	      done
+	;;
+	*)
+	audio_file_link="https://vid.puffyan.us$(curl -s "https://vid.puffyan.us/watch?v=$link&listen=1" | grep latest_version | tail -n 1 | awk '{print $2}' | sed 's/src=//' | sed 's/"//g')"
+	
+	echo $audio_file_link
+	curl --progress-bar -L -o "$song_req.webm" "$audio_file_link"
+	while [ true ];
+	do	
+
+		if [ -f "$song_req.webm" ];
+		then
+		       printf "Success!\n"
+		       break
+
+		else
+			curl --progress-bar -L -o "$song_req.webm" "$audio_file_link"
+		  fi
+	done
+
+	ffmpeg -y -i "$song_req.webm" "$song_req.$format_query" > /dev/null 2>&1
+	;;
+	esac
+	#this makes link into its audio form like https://vid.puffyan.us/embed/fKopy74weus?listen=1' 
+	#and then downloads it to m4a and ffmpeg convert it to wav
+
+}
+
+down_play="$1"
+song_query="$2"
+format_query="$3"
+new_name="$4"
+case "$down_play" in
+	"1" | "d" | "down" | "download" | "-d")
+
+        printf "Downloading Please Wait....\n"
+
+	link=$(curl -s https://vid.puffyan.us/search?q=$(printf "$song_query" | sed 's/ /+/g') | awk '/Watch/{print}' | head -n 1 | awk '{print $5}' | sed 's/href="//' | sed 's/">//' | cut -c 33-) #link variable fetches link of video like fKopy74weus 
+
+	download "$song_query" "$format_query" "$link"
+	case "$new_name" in 
+		"")
+		name_without_space=$(printf "$song_query.$format_query" | sed s'/ /-/g')
+		mv "$song_req.$format_query" "$name_without_space" > /dev/null 2>&1 && mv "$name_without_space" "songs/"
+		;;
+		*)
+		name_without_space=$(printf "$song_query.$format_query" | sed 's/ /-/g')
+		mv "$song_req.$format_query" "$name_without_space.$format_query" > /dev/null 2>&1 && mv "$name_without_space.$format_query" "songs/" ;;
+	esac
+	;;
+	"2" | "pl" | "play" | "p")
+
+	$(display_songs)
+	printf "song: "
+	read song_query
+	$(player) "songs/$song_query"*
+		;;
+
+	"mshr")
+	tar -cJvf  songs.tar.gz "songs/"
+	printf "link is $(curl -F file="@songs.tar.gz" 0x0.st)\n"
+	rm songs.tar.gz
+	;;
+
+	
+	"loop" | "lp" | "l")
+	$(display_songs)
+	printf "song: "
+	read song_query
+	while :
+	do
+		$(player) "songs/$song_query"*
+	done ;;
+
+"shf" | "sf" | "shuffle" | "s")
+		shuffle
+		;;
+
+	"shr")
+	$(display_songs)
+	printf "song:"
+	read song
+	printf "link is $(curl -F file="@$song" 0x0.st)\n"
+	;;
+
+	"msd" | "mass-download" | "md")
+		file_query="$2"
+		printf "$file_query" > songs.txt
+		sh mass-downloader.sh
+	;;	
+esac
