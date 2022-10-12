@@ -102,8 +102,9 @@ case "$down_play" in
 		;;
 		*)
 		name_without_space=$(printf "$new_name.$format_query" | sed 's/ /-/g')
-		mv "$song_req.$format_query" "$name_without_space" > /dev/null 2>&1 && mv "$name_without_space" "songs/" ;;
+		mv "$song_req.$format_query" "$name_without_space" > /dev/null 2>&1 && mv "$name_without_space" "songs/";;
 	esac
+	rm *.webm ; rm *.m4a > /dev/null 2>&1
 	;;
 	"2" | "pl" | "play" | "p")
 
