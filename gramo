@@ -143,7 +143,7 @@ case "$down_play" in
 
 	"msd" | "mass-download" | "md")
 		file_query="$2"
-		printf "$file_query" > songs.txt
+		printf "$file_query" > %Lks.txt #name of the file which contains songs list
 		sh mass-downloader.sh
 	;;	
 esac
