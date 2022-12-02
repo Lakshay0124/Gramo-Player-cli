@@ -12,7 +12,7 @@ download()
 	audio_file="https://vid.puffyan.us/latest_version?id=$link&itag=139&local=true"
 
 		#this makes link into its audio form like https://vid.puffyan.us/embed/fKopy74weus?listen=1' 
-	curl -L -o "$("$(cat songs.txt)" | head -n "$1" | tail -n 1).m4a" "$audio_file" 
+	curl -L -o "$(cat songs.txt | head -n "$1" | tail -n 1).m4a" "$audio_file" 
                 
 	printf "Success!\n"
 	
