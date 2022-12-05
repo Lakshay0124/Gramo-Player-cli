@@ -4,7 +4,8 @@ download()
 {
 	#songs="$(head -n $1 songs)"
         echo "Downloading Please Wait!" 
-	echo "$(cat "$(cat %Lks.txt)" | head -n $1 | tail -n 1)" > "$1_req.txt"
+	name_song="$(cat "$(cat %Lks.txt)" | head -n $1 | tail -n 1)" 
+	echo "$name_song" > "$1_req.txt"
 	
 	#link variable fetches link of video like fKopy74weus 
 	
@@ -13,8 +14,9 @@ download()
 	audio_file="https://vid.puffyan.us/latest_version?id=$link&itag=139&local=true"
 
 		#this makes link into its audio form like https://vid.puffyan.us/embed/fKopy74weus?listen=1' 
-	curl -L -o "$(cat %Lks.txt | head -n "$1" | tail -n 1).m4a" "$audio_file" 
-                
+	curl -L -o "$(cat "$(cat %Lks.txt)" | head -n "$1" | tail -n 1).m4a" "$audio_file" 
+        name_without_space=$(printf "$name_song" | sed s'/ /-/g')
+	mv "$name_song.m4a" "$name_without_space.m4a" > /dev/null 2>&1 && mv "$name_without_space.m4a" "songs/"
 	printf "Success!\n"
 	
 }
@@ -29,4 +31,5 @@ do
 done
 wait
 
+mv *.m4a songs > /dev/null 2>&1
 rm *_req.txt > /dev/null 2>&1 ; rm %Lks.txt > /dev/null 2>&1
