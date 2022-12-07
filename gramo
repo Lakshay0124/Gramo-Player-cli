@@ -108,12 +108,17 @@ case "$down_play" in
 	;;
 	"2" | "pl" | "play" | "p")
 
-	$(display_songs)
-	printf "song: "
-	read song_query
-	$(player) "songs/$song_query"* && kill -9 $! > /dev/null 2>&1
-		;;
-
+	case "$2" in 
+		"")
+		$(display_songs)
+		printf "song: "
+		read song_query 
+		$(player) "songs/$song_query"* && kill -9 $! > /dev/null 2>&1 ;;
+		*)
+		song_query=$2
+		$(player) "songs/$song_query"* && kill -9 $! > /dev/null 2>&1 ;;
+esac
+	;;
 	"mshr")
 	tar -cJvf  songs.tar.gz "songs/"
 	printf "link is $(curl -F file="@songs.tar.gz" 0x0.st)\n"
